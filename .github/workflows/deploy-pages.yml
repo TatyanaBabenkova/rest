@@ -45,6 +45,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Export menu from Excel
+        run: python tools/sync_menu_from_excel.py
+
       - name: Build static site
         run: npm run build:github
 

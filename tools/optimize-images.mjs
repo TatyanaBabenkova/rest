@@ -4,6 +4,7 @@ import sharp from 'sharp';
 
 const sourceDir = path.resolve('public/menu');
 const names = (await fs.readdir(sourceDir)).filter((name) => name.endsWith('.png'));
+const cleanSources = process.argv.includes('--clean');
 
 for (const name of names) {
   const source = path.join(sourceDir, name);
@@ -12,6 +13,7 @@ for (const name of names) {
     .resize(720, 720, { fit: 'cover' })
     .webp({ quality: 78, smartSubsample: true })
     .toFile(target);
+  if (cleanSources) await fs.unlink(source);
 }
 
 console.log(`Optimized ${names.length} menu images.`);

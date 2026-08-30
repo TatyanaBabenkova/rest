@@ -9,6 +9,8 @@
     "dev": "vinext dev",
     "build": "vinext build",
     "build:github": "next build",
+    "sync:menu": "python tools/sync_menu_from_excel.py",
+    "optimize:images": "node tools/optimize-images.mjs --clean",
     "start": "vinext start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },
