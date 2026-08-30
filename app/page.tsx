@@ -120,6 +120,8 @@ export default function Home() {
   const [selectedTable, setSelectedTable] = useState(4);
   const [selectedSeat, setSelectedSeat] = useState(1);
   const [waiterSearch, setWaiterSearch] = useState('');
+  const [waiterCategory, setWaiterCategory] = useState('Популярное');
+  const [waiterCartOpen, setWaiterCartOpen] = useState(false);
   const [waiterTab, setWaiterTab] = useState<'pending' | 'active' | 'ready' | 'served' | 'create'>('pending');
   const [reviewId, setReviewId] = useState<number | null>(null);
   const [reviewDraft, setReviewDraft] = useState<Record<string, number>>({});
@@ -136,6 +138,7 @@ export default function Home() {
   const themeName = state.theme === 'aurora' ? 'Аврора' : 'Буревестник';
   const trainRoute = state.theme === 'aurora' ? 'Москва · Санкт-Петербург' : 'Москва · Нижний Новгород';
   const cartCount = Object.values(state.cart).reduce((sum, qty) => sum + qty, 0);
+  const waiterCartCount = Object.values(state.waiterCart).reduce((sum, qty) => sum + qty, 0);
   const passengerOrders = state.orders.filter((order) => order.table === 4 && order.source === 'passenger').sort((a, b) => b.createdAt - a.createdAt);
   const pendingCount = state.orders.filter((order) => order.status === 'pending').length;
   const readyCount = state.orders.filter((order) => order.status === 'ready').length;
@@ -147,9 +150,12 @@ export default function Home() {
   }, [category, search]);
   const waiterResults = useMemo(() => {
     const query = waiterSearch.trim().toLocaleLowerCase('ru-RU');
-    if (!query) return menu.filter((item) => item.popular).slice(0, 10);
-    return menu.filter((item) => `${item.name} ${item.category}`.toLocaleLowerCase('ru-RU').includes(query)).slice(0, 12);
-  }, [waiterSearch]);
+    return menu.filter((item) => {
+      const categoryMatch = waiterCategory === 'Популярное' ? item.popular : item.category === waiterCategory;
+      const queryMatch = !query || `${item.name} ${item.description} ${item.category}`.toLocaleLowerCase('ru-RU').includes(query);
+      return query ? queryMatch : categoryMatch;
+    });
+  }, [waiterCategory, waiterSearch]);
 
   const addEvent = (text: string) => ({ time: stamp(), text });
   const changeCart = (id: string, qty: number, waiter = false) => setState((current) => ({ ...current, [waiter ? 'waiterCart' : 'cart']: { ...(waiter ? current.waiterCart : current.cart), [id]: Math.max(0, qty) } }));
@@ -203,6 +209,16 @@ export default function Home() {
     return <article className={`dish-card ${stopped ? 'dish-stopped' : ''} ${waiter ? 'dish-card-compact' : ''}`}><div className="dish-image-wrap"><img src={`${basePath}/${item.image}`} alt={item.name} className="dish-image" />{item.popular && <span className="dish-badge">Выбор гостей</span>}{stopped && <span className="stop-badge">Временно нет</span>}</div><div className="dish-body"><div className="dish-meta"><span>{item.category}</span><span>≈ {item.minutes} мин</span></div><h3>{item.name}</h3>{!waiter && <p>{item.description}</p>}<div className="dish-footer"><div><strong>{money(item.price)}</strong><small>{item.weight}</small></div>{qty > 0 ? <Stepper value={qty} compact onChange={(value) => changeCart(item.id, value, waiter)} /> : <button className="add-button" disabled={stopped} onClick={() => changeCart(item.id, 1, waiter)} aria-label={`Добавить ${item.name}`}>+</button>}</div></div></article>;
   };
 
+  const renderWaiterMenuItem = (item: MenuItem) => {
+    const qty = state.waiterCart[item.id] ?? 0;
+    const stopped = state.stopList.includes(item.id);
+    return <article className={`waiter-menu-item ${stopped ? 'dish-stopped' : ''}`} key={item.id}>
+      <div className="waiter-menu-thumb"><img src={`${basePath}/${item.image}`} alt="" />{stopped && <span>Нет</span>}</div>
+      <div className="waiter-menu-copy"><span>{item.category} · {item.minutes} мин</span><strong>{item.name}</strong><small>{item.weight} · {money(item.price)}</small></div>
+      {qty > 0 ? <Stepper value={qty} compact onChange={(value) => changeCart(item.id, value, true)} /> : <button className="waiter-add" disabled={stopped} onClick={() => changeCart(item.id, 1, true)} aria-label={`Добавить ${item.name}`}>+</button>}
+    </article>;
+  };
+
   const renderCart = ({ waiter = false }: { waiter?: boolean }) => {
     const cart = waiter ? state.waiterCart : state.cart;
     const lines = linesFrom(cart);
@@ -227,11 +243,18 @@ export default function Home() {
   const renderWaiterView = () => {
     const groups = { pending: state.orders.filter((order) => order.status === 'pending'), active: state.orders.filter((order) => ['accepted', 'preparing'].includes(order.status)), ready: state.orders.filter((order) => order.status === 'ready'), served: state.orders.filter((order) => ['served', 'rejected'].includes(order.status)).sort((a, b) => b.createdAt - a.createdAt) };
     const displayed = waiterTab === 'create' ? [] : groups[waiterTab];
-    return <div className="staff-view"><section className="staff-hero"><div><span className="eyebrow">Смена · зал вагона-ресторана</span><h1>Официант</h1><p>{pendingCount} на подтверждение · {readyCount} готовы · {openCalls.length} запросов гостей</p></div><div className="hero-clock"><strong>{stamp(new Date(clock))}</strong><span>автономный режим</span></div></section>
+    const waiterTabs: { id: typeof waiterTab; label: string; count?: number }[] = [
+      { id: 'create', label: 'Новый заказ' },
+      { id: 'pending', label: 'Подтвердить', count: groups.pending.length },
+      { id: 'active', label: 'В работе', count: groups.active.length },
+      { id: 'ready', label: 'К подаче', count: groups.ready.length },
+      { id: 'served', label: 'Завершённые', count: groups.served.length },
+    ];
+    return <div className="staff-view waiter-view"><section className="staff-hero"><div><span className="eyebrow">Смена · зал вагона-ресторана</span><h1>Официант</h1><p>{pendingCount} на подтверждение · {readyCount} готовы · {openCalls.length} запросов гостей</p></div><div className="hero-clock"><strong>{stamp(new Date(clock))}</strong><span>автономный режим</span></div></section>
       {openCalls.length > 0 && <div className="call-strip">{openCalls.map((call) => <div key={call.id}><span>{call.type === 'bill' ? '▤' : '◇'}</span><strong>Стол {call.table}: {call.type === 'bill' ? 'просят счёт' : 'зовут официанта'}</strong><button onClick={() => acceptCall(call.id)}>Принять</button></div>)}</div>}
-      <section className="table-map"><div className="section-title"><div><span className="eyebrow">Схема зала</span><h2>4 столика</h2></div></div><div className="tables-row">{[1, 2, 3, 4].map((table) => { const active = state.orders.filter((order) => order.table === table && !['served', 'rejected'].includes(order.status)); return <button key={table} className={selectedTable === table ? 'selected' : ''} onClick={() => setSelectedTable(table)}><span>Стол</span><strong>{table}</strong><small>{active.length ? `${active.length} заказ${active.length > 1 ? 'а' : ''}` : 'свободен'}</small>{active.some((order) => order.status === 'ready') && <i />}</button>; })}</div></section>
-      <div className="work-tabs">{([['pending', `Подтвердить · ${groups.pending.length}`], ['active', `В работе · ${groups.active.length}`], ['ready', `К подаче · ${groups.ready.length}`], ['served', 'Завершённые'], ['create', '＋ Новый заказ']] as const).map(([id, label]) => <button key={id} className={waiterTab === id ? 'active' : ''} onClick={() => setWaiterTab(id)}>{label}</button>)}</div>
-      {waiterTab === 'create' ? <div className="waiter-create"><section><div className="selector-row"><label>Стол<select value={selectedTable} onChange={(event) => setSelectedTable(Number(event.target.value))}>{[1,2,3,4].map((value) => <option key={value}>{value}</option>)}</select></label><label>Место<select value={selectedSeat} onChange={(event) => setSelectedSeat(Number(event.target.value))}>{[1,2,3,4].map((value) => <option key={value}>{value}</option>)}</select></label></div><div className="search-box waiter-search"><span>⌕</span><input autoFocus value={waiterSearch} onChange={(event) => setWaiterSearch(event.target.value)} placeholder="Начните вводить: борщ, чай, лосось…" /></div><div className="quick-hint">{waiterSearch ? `Найдено: ${waiterResults.length}` : 'Быстрый выбор популярных позиций'}</div><div className="waiter-menu-grid">{waiterResults.map((item) => <div className="dish-host" key={item.id}>{renderDishCard({ item, waiter: true })}</div>)}</div></section>{renderCart({ waiter: true })}</div> : displayed.length ? <div className="orders-grid">{displayed.map((order) => <div key={order.id}>{waiterTab === 'pending' ? <article className="order-card approval-card"><div className="order-card-head"><div><span className="order-number">№ {order.id}</span><h3>Стол {order.table} · место {order.seat}</h3></div><MiniStatus status={order.status} /></div><div className="ticket-lines">{order.items.map((line) => <div key={line.id}><strong>{line.qty}×</strong><span>{itemFor(line.id)?.name}</span></div>)}</div><div className="card-total"><span>{order.payment === 'card' ? 'Картой' : 'Наличными'}</span><strong>{money(totalFor(order.items))}</strong></div><button className="primary-button full" onClick={() => openReview(order)}>Проверить заказ</button></article> : renderOrderCard({ order })}</div>)}</div> : <EmptyState icon="✓" title="Здесь всё спокойно" text={waiterTab === 'pending' ? 'Новых заказов на подтверждение нет.' : 'В этой очереди пока нет заказов.'} />}
+      <section className="table-map"><div className="section-title"><div><span className="eyebrow">Схема зала</span><h2>4 столика</h2></div></div><div className="tables-row">{[1, 2, 3, 4].map((table) => { const active = state.orders.filter((order) => order.table === table && !['served', 'rejected'].includes(order.status)); const calls = openCalls.filter((call) => call.table === table); const attention = active.some((order) => ['pending', 'ready'].includes(order.status)) || calls.length > 0; const count = active.length + calls.length; return <button key={table} className={`${selectedTable === table ? 'selected' : ''} ${attention ? 'needs-attention' : ''}`} onClick={() => setSelectedTable(table)} aria-label={`Стол ${table}: ${count ? `${count} событий` : 'свободен'}`}><span>Стол</span><strong>{table}</strong><small>{calls.length ? 'нужен подход' : active.length ? `${active.length} заказ${active.length > 1 ? 'а' : ''}` : 'свободен'}</small>{count > 0 && <b className="table-count-badge">{count}</b>}</button>; })}</div></section>
+      <div className="work-tabs waiter-work-tabs">{waiterTabs.map(({ id, label, count }) => <button key={id} className={`${waiterTab === id ? 'active' : ''} ${id === 'create' ? 'new-order-tab' : ''}`} onClick={() => setWaiterTab(id)}>{id === 'create' && <span className="tab-plus">+</span>}<span>{label}</span>{typeof count === 'number' && <b className={count > 0 ? 'queue-count has-count' : 'queue-count'}>{count}</b>}</button>)}</div>
+      {waiterTab === 'create' ? <><div className="waiter-create"><section><div className="selector-row"><label>Стол<select value={selectedTable} onChange={(event) => setSelectedTable(Number(event.target.value))}>{[1,2,3,4].map((value) => <option key={value}>{value}</option>)}</select></label><label>Место<select value={selectedSeat} onChange={(event) => setSelectedSeat(Number(event.target.value))}>{[1,2,3,4].map((value) => <option key={value}>{value}</option>)}</select></label></div><div className="search-box waiter-search"><span>⌕</span><input autoFocus value={waiterSearch} onChange={(event) => setWaiterSearch(event.target.value)} placeholder="Быстрый поиск: борщ, чай, лосось…" /></div><div className="waiter-categories">{categories.map((name) => <button key={name} className={waiterCategory === name ? 'active' : ''} onClick={() => { setWaiterCategory(name); setWaiterSearch(''); }}>{name}</button>)}</div><div className="quick-hint">{waiterSearch ? `Найдено: ${waiterResults.length}` : `${waiterCategory} · ${waiterResults.length} позиций`}</div><div className="waiter-menu-grid">{waiterResults.map(renderWaiterMenuItem)}</div></section>{renderCart({ waiter: true })}</div>{waiterCartCount > 0 && <button className="mobile-cart-button waiter-mobile-cart-button" onClick={() => setWaiterCartOpen(true)}><span>Заказ · {waiterCartCount}</span><strong>{money(totalFor(linesFrom(state.waiterCart)))}</strong></button>}{waiterCartOpen && <div className="mobile-cart-layer" onClick={() => setWaiterCartOpen(false)}><div onClick={(event) => event.stopPropagation()}>{renderCart({ waiter: true })}</div></div>}</> : displayed.length ? <div className="orders-grid">{displayed.map((order) => <div key={order.id}>{waiterTab === 'pending' ? <article className="order-card approval-card"><div className="order-card-head"><div><span className="order-number">№ {order.id}</span><h3>Стол {order.table} · место {order.seat}</h3></div><MiniStatus status={order.status} /></div><div className="ticket-lines">{order.items.map((line) => <div key={line.id}><strong>{line.qty}×</strong><span>{itemFor(line.id)?.name}</span></div>)}</div><div className="card-total"><span>{order.payment === 'card' ? 'Картой' : 'Наличными'}</span><strong>{money(totalFor(order.items))}</strong></div><button className="primary-button full" onClick={() => openReview(order)}>Проверить заказ</button></article> : renderOrderCard({ order })}</div>)}</div> : <EmptyState icon="✓" title="Здесь всё спокойно" text={waiterTab === 'pending' ? 'Новых заказов на подтверждение нет.' : 'В этой очереди пока нет заказов.'} />}
     </div>;
   };
 
