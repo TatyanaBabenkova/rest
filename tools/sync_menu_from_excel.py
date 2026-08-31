@@ -90,6 +90,7 @@ def build_menu(rows: list[list[object]]) -> list[dict[str, object]]:
     required = [
         "ID", "Категория", "Название", "Описание", "Цена, ₽", "Вес / объём",
         "Время, мин", "Цех", "Популярное", "Файл изображения", "Модификаторы",
+        "Состав", "Ккал", "Белки, г", "Жиры, г", "Углеводы, г",
     ]
     missing = [name for name in required if name not in headers]
     if missing:
@@ -125,6 +126,11 @@ def build_menu(rows: list[list[object]]) -> list[dict[str, object]]:
             "image": str(get(row, "Файл изображения")).strip(),
             "popular": str(get(row, "Популярное")).strip().casefold() in {"да", "true", "1"},
             "modifiers": modifiers,
+            "ingredients": str(get(row, "Состав")).strip(),
+            "calories": float(get(row, "Ккал")),
+            "protein": float(get(row, "Белки, г")),
+            "fat": float(get(row, "Жиры, г")),
+            "carbs": float(get(row, "Углеводы, г")),
         })
     return menu
 

@@ -13,7 +13,12 @@
     "modifiers": [
       "Без сметаны",
       "Сметана отдельно"
-    ]
+    ],
+    "ingredients": "Насыщенный свекольный бульон, нежная говядина, сметана и свежий укроп.",
+    "calories": 245.0,
+    "protein": 17.0,
+    "fat": 13.0,
+    "carbs": 16.0
   },
   {
     "id": "chicken-noodle-soup",
@@ -28,7 +33,12 @@
     "popular": false,
     "modifiers": [
       "Без зелени"
-    ]
+    ],
+    "ingredients": "Прозрачный бульон, куриное филе, тонкая лапша, морковь и зелень.",
+    "calories": 190.0,
+    "protein": 16.0,
+    "fat": 7.0,
+    "carbs": 18.0
   },
   {
     "id": "mushroom-cream-soup",
@@ -43,7 +53,12 @@
     "popular": true,
     "modifiers": [
       "Без сливок"
-    ]
+    ],
+    "ingredients": "Бархатистый грибной крем с обжаренными шампиньонами и сливками.",
+    "calories": 285.0,
+    "protein": 8.0,
+    "fat": 20.0,
+    "carbs": 22.0
   },
   {
     "id": "solyanka",
@@ -59,7 +74,12 @@
     "modifiers": [
       "Без сметаны",
       "Без лимона"
-    ]
+    ],
+    "ingredients": "Говядина, копчёности, маслины, лимон и сметана по классическому рецепту.",
+    "calories": 340.0,
+    "protein": 19.0,
+    "fat": 24.0,
+    "carbs": 15.0
   },
   {
     "id": "ukha",
@@ -74,7 +94,12 @@
     "popular": true,
     "modifiers": [
       "Без зелени"
-    ]
+    ],
+    "ingredients": "Лосось и судак в прозрачном бульоне с картофелем и ароматной зеленью.",
+    "calories": 260.0,
+    "protein": 28.0,
+    "fat": 11.0,
+    "carbs": 13.0
   },
   {
     "id": "pozharsky-cutlet",
@@ -89,7 +114,12 @@
     "popular": true,
     "modifiers": [
       "Соус отдельно"
-    ]
+    ],
+    "ingredients": "Сочная куриная котлета в хрустящей корочке с картофельным пюре.",
+    "calories": 620.0,
+    "protein": 32.0,
+    "fat": 34.0,
+    "carbs": 49.0
   },
   {
     "id": "beef-stroganoff",
@@ -105,7 +135,12 @@
     "modifiers": [
       "Без корнишона",
       "Соус отдельно"
-    ]
+    ],
+    "ingredients": "Нежная говядина в сливочном соусе с рассыпчатой гречей и корнишоном.",
+    "calories": 680.0,
+    "protein": 38.0,
+    "fat": 35.0,
+    "carbs": 54.0
   },
   {
     "id": "salmon",
@@ -120,7 +155,12 @@
     "popular": false,
     "modifiers": [
       "Соус отдельно"
-    ]
+    ],
+    "ingredients": "Филе лосося, молодой картофель, зелёная фасоль и лёгкий сливочный соус.",
+    "calories": 610.0,
+    "protein": 39.0,
+    "fat": 38.0,
+    "carbs": 32.0
   },
   {
     "id": "pot-roast",
@@ -135,7 +175,12 @@
     "popular": true,
     "modifiers": [
       "Без лука"
-    ]
+    ],
+    "ingredients": "Говядина, картофель и овощи, томлённые в керамическом горшочке.",
+    "calories": 720.0,
+    "protein": 42.0,
+    "fat": 39.0,
+    "carbs": 58.0
   },
   {
     "id": "pelmeni",
@@ -151,7 +196,12 @@
     "modifiers": [
       "Без сметаны",
       "Сметана отдельно"
-    ]
+    ],
+    "ingredients": "Пельмени ручной лепки с говядиной и свининой, маслом и сметаной.",
+    "calories": 610.0,
+    "protein": 28.0,
+    "fat": 30.0,
+    "carbs": 55.0
   },
   {
     "id": "olivier",
@@ -166,7 +216,12 @@
     "popular": true,
     "modifiers": [
       "Без лука"
-    ]
+    ],
+    "ingredients": "Картофель, яйцо, зелёный горошек, огурец и копчёная курица.",
+    "calories": 390.0,
+    "protein": 18.0,
+    "fat": 27.0,
+    "carbs": 18.0
   },
   {
     "id": "beet-salad",
@@ -182,7 +237,12 @@
     "modifiers": [
       "Без орехов",
       "Соус отдельно"
-    ]
+    ],
+    "ingredients": "Запечённая свёкла, мягкий сыр, грецкий орех, руккола и бальзамик.",
+    "calories": 330.0,
+    "protein": 10.0,
+    "fat": 24.0,
+    "carbs": 22.0
   },
   {
     "id": "herring-potatoes",
@@ -197,7 +257,12 @@
     "popular": false,
     "modifiers": [
       "Без лука"
-    ]
+    ],
+    "ingredients": "Слабосолёная сельдь, молодой картофель, красный лук и горчичная заправка.",
+    "calories": 360.0,
+    "protein": 20.0,
+    "fat": 23.0,
+    "carbs": 24.0
   },
   {
     "id": "salmon-bruschetta",
@@ -212,7 +277,12 @@
     "popular": true,
     "modifiers": [
       "Без огурца"
-    ]
+    ],
+    "ingredients": "Ржаные тосты, слабосолёный лосось, сливочный сыр и огурец.",
+    "calories": 410.0,
+    "protein": 23.0,
+    "fat": 22.0,
+    "carbs": 30.0
   },
   {
     "id": "cheese-board",
@@ -228,7 +298,12 @@
     "modifiers": [
       "Без орехов",
       "Без мёда"
-    ]
+    ],
+    "ingredients": "Три вида сыра, виноград, груша, грецкий орех и цветочный мёд.",
+    "calories": 650.0,
+    "protein": 29.0,
+    "fat": 48.0,
+    "carbs": 23.0
   },
   {
     "id": "medovik",
@@ -241,7 +316,12 @@
     "station": "kitchen",
     "image": "menu/medovik.webp",
     "popular": true,
-    "modifiers": []
+    "modifiers": [],
+    "ingredients": "Тонкие медовые коржи, нежный сметанный крем и лёгкая крошка.",
+    "calories": 470.0,
+    "protein": 7.0,
+    "fat": 24.0,
+    "carbs": 58.0
   },
   {
     "id": "syrniki",
@@ -257,7 +337,12 @@
     "modifiers": [
       "Без сметаны",
       "Соус отдельно"
-    ]
+    ],
+    "ingredients": "Творожные сырники, сметана и тёплый соус из северных ягод.",
+    "calories": 520.0,
+    "protein": 26.0,
+    "fat": 25.0,
+    "carbs": 51.0
   },
   {
     "id": "apple-strudel",
@@ -272,7 +357,12 @@
     "popular": false,
     "modifiers": [
       "Без мороженого"
-    ]
+    ],
+    "ingredients": "Тёплый штрудель с яблоком и корицей, подаётся с ванильным мороженым.",
+    "calories": 420.0,
+    "protein": 6.0,
+    "fat": 18.0,
+    "carbs": 58.0
   },
   {
     "id": "chocolate-fondant",
@@ -285,7 +375,12 @@
     "station": "kitchen",
     "image": "menu/chocolate-fondant.webp",
     "popular": false,
-    "modifiers": []
+    "modifiers": [],
+    "ingredients": "Тёплый шоколадный кекс с жидкой сердцевиной и свежими ягодами.",
+    "calories": 540.0,
+    "protein": 8.0,
+    "fat": 32.0,
+    "carbs": 55.0
   },
   {
     "id": "plombir",
@@ -300,7 +395,12 @@
     "popular": true,
     "modifiers": [
       "Без ягод"
-    ]
+    ],
+    "ingredients": "Классический сливочный пломбир в хрустальной креманке с ягодами.",
+    "calories": 310.0,
+    "protein": 5.0,
+    "fat": 17.0,
+    "carbs": 36.0
   },
   {
     "id": "berry-mors",
@@ -315,7 +415,12 @@
     "popular": true,
     "modifiers": [
       "Без льда"
-    ]
+    ],
+    "ingredients": "Клюква и брусника, умеренная сладость и чистый ягодный вкус.",
+    "calories": 125.0,
+    "protein": 0.0,
+    "fat": 0.0,
+    "carbs": 31.0
   },
   {
     "id": "thyme-tea",
@@ -331,7 +436,12 @@
     "modifiers": [
       "Без сахара",
       "Лимон"
-    ]
+    ],
+    "ingredients": "Листовой чёрный чай с ароматным чабрецом в стеклянном подстаканнике.",
+    "calories": 5.0,
+    "protein": 0.0,
+    "fat": 0.0,
+    "carbs": 1.0
   },
   {
     "id": "cappuccino",
@@ -347,7 +457,12 @@
     "modifiers": [
       "Без сахара",
       "Корица"
-    ]
+    ],
+    "ingredients": "Классический эспрессо, молоко и плотная бархатистая пена.",
+    "calories": 145.0,
+    "protein": 7.0,
+    "fat": 7.0,
+    "carbs": 13.0
   },
   {
     "id": "sea-buckthorn-lemonade",
@@ -362,7 +477,12 @@
     "popular": false,
     "modifiers": [
       "Без льда"
-    ]
+    ],
+    "ingredients": "Облепиха, цитрус и газированная вода — свежий фирменный напиток.",
+    "calories": 160.0,
+    "protein": 1.0,
+    "fat": 0.0,
+    "carbs": 39.0
   },
   {
     "id": "mineral-water",
@@ -375,7 +495,12 @@
     "station": "bar",
     "image": "menu/mineral-water.webp",
     "popular": false,
-    "modifiers": []
+    "modifiers": [],
+    "ingredients": "Негазированная минеральная вода в стеклянной бутылке.",
+    "calories": 0.0,
+    "protein": 0.0,
+    "fat": 0.0,
+    "carbs": 0.0
   },
   {
     "id": "roasted-nuts",
@@ -388,7 +513,12 @@
     "station": "bar",
     "image": "menu/roasted-nuts.webp",
     "popular": true,
-    "modifiers": []
+    "modifiers": [],
+    "ingredients": "Тёплый микс миндаля, кешью и фундука с розмарином и морской солью.",
+    "calories": 560.0,
+    "protein": 17.0,
+    "fat": 47.0,
+    "carbs": 17.0
   },
   {
     "id": "rye-crackers",
@@ -403,7 +533,12 @@
     "popular": false,
     "modifiers": [
       "Без чеснока"
-    ]
+    ],
+    "ingredients": "Хрустящие ржаные гренки с чесноком и ароматными травами.",
+    "calories": 410.0,
+    "protein": 9.0,
+    "fat": 18.0,
+    "carbs": 57.0
   },
   {
     "id": "truffle-chips",
@@ -416,7 +551,12 @@
     "station": "bar",
     "image": "menu/truffle-chips.webp",
     "popular": false,
-    "modifiers": []
+    "modifiers": [],
+    "ingredients": "Тонкие картофельные чипсы с деликатной трюфельной приправой.",
+    "calories": 430.0,
+    "protein": 5.0,
+    "fat": 27.0,
+    "carbs": 43.0
   },
   {
     "id": "dark-chocolate",
@@ -431,7 +571,12 @@
     "popular": false,
     "modifiers": [
       "Без орехов"
-    ]
+    ],
+    "ingredients": "Горький шоколад, вяленая клюква и обжаренный фундук.",
+    "calories": 480.0,
+    "protein": 7.0,
+    "fat": 30.0,
+    "carbs": 45.0
   },
   {
     "id": "mini-pretzels",
@@ -444,6 +589,53 @@
     "station": "bar",
     "image": "menu/mini-pretzels.webp",
     "popular": false,
-    "modifiers": []
+    "modifiers": [],
+    "ingredients": "Маленькие хрустящие бретцели с крупной морской солью.",
+    "calories": 390.0,
+    "protein": 9.0,
+    "fat": 8.0,
+    "carbs": 70.0
+  },
+  {
+    "id": "aurora-lunch-combo",
+    "category": "Комбо",
+    "name": "Фирменный обед «Аврора»",
+    "description": "Куриный суп с домашней лапшой, пожарская котлета с картофельным пюре и хлебная булочка.",
+    "price": 1090,
+    "weight": "670 г",
+    "minutes": 24,
+    "station": "kitchen",
+    "image": "menu/pozharsky-cutlet.webp",
+    "popular": true,
+    "modifiers": [
+      "Без зелени",
+      "Соус отдельно"
+    ],
+    "ingredients": "Куриный бульон, куриное филе, лапша, морковь, зелень, куриная котлета, панировка, картофель, молоко, сливочное масло, пшеничная булочка.",
+    "calories": 810.0,
+    "protein": 48.0,
+    "fat": 41.0,
+    "carbs": 70.0
+  },
+  {
+    "id": "tea-journey-combo",
+    "category": "Комбо",
+    "name": "Чайный набор «В пути»",
+    "description": "Чёрный чай с чабрецом, мини-бретцели и тёмный шоколад с клюквой.",
+    "price": 720,
+    "weight": "400 мл + 185 г",
+    "minutes": 5,
+    "station": "bar",
+    "image": "menu/thyme-tea.webp",
+    "popular": true,
+    "modifiers": [
+      "Без сахара",
+      "Лимон"
+    ],
+    "ingredients": "Чёрный листовой чай, чабрец, мини-бретцели с морской солью, тёмный шоколад, вяленая клюква, фундук.",
+    "calories": 875.0,
+    "protein": 16.0,
+    "fat": 38.0,
+    "carbs": 116.0
   }
 ]
